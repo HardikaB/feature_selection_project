@@ -1,3 +1,4 @@
+# %load q03_rf_rfe/build.py
 # Default imports
 import pandas as pd
 
@@ -8,4 +9,17 @@ from sklearn.ensemble import RandomForestClassifier
 
 
 # Your solution code here
+
+# Recursive Feature Elimination
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LinearRegression
+
+
+def rf_rfe(df):
+    model = RandomForestClassifier()
+    X, y = df.iloc[:,:-1], df.iloc[:,-1]
+    rfe = RFE(model, X.shape[1]/2)
+    rfe = rfe.fit(X, y)
+    top_features=list(X.columns.values[rfe.support_])
+    return top_features
 
